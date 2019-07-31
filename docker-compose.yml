@@ -1,0 +1,39 @@
+
+version: '2.2'
+
+services:
+
+  avatars-client:
+    build:
+      context: test_client
+    image: cyberdojo/avatars-client
+    init: true
+    container_name: test-avatars-client
+    user: nobody
+    read_only: true
+    tmpfs: /tmp
+    restart: 'no'
+    ports:
+      - 5028:5028
+
+
+  avatars-server:
+    build:
+      context: .
+      args:
+        - SHA
+    image: cyberdojo/avatars
+    container_name: test-avatars-server
+    environment:
+      - NO_PROMETHEUS
+    volumes:
+      - ./test_server:/app/test:ro
+    ports:
+      - 5027:5027
+    init: true
+    user: nobody
+    read_only: true
+    tmpfs:
+      - /tmp:exec,mode=1777 # Sticky bit must be set on /tmp otherwise
+                            # Dir.mktmpdir(id,'/tmp') complains
+    restart: 'no'
