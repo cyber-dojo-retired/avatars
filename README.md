@@ -108,7 +108,7 @@ TO-ADD
 # build the demo and run it
 - Runs inside the avatars-client's container.
 - Calls the avatars-server's methods and displays their json results and how long they took.
-- If the avatars-client's IP address is 192.168.99.100 then put 192.168.99.100:???? into your browser to see the output.
+- If the avatars-client's IP address is 192.168.99.100 then put 192.168.99.100:5028 into your browser to see the output.
 
 ```bash
 $ ./sh/run_demo.sh
