@@ -24,70 +24,73 @@
 - - - -
 ## GET names
 Serves the avatars names.
-- parameters
-  * none
-  ```json
-  {}
-  ```
 - returns
   * An array of 64 strings
   * eg
   ```json
-  [
-    "alligator",
-    "antelope",
-    "bat",
-    "bear",      
-    ...,
-    "wolf",
-    "zebra"
-  ]
+  { "names": [
+      "alligator",
+      "antelope",
+      "bat",
+      "bear",      
+      ...,
+      "wolf",
+      "zebra"
+    ]
+  }
+  ```
+- parameters
+  * none
+  ```json
+  {}
   ```
 
 - - - -
 # GET ready?
-Useful as a kubernetes readiness probe.
+Useful as a readiness probe.
+- returns
+  * **true** if the service is ready
+  ```json
+  { "ready?": true }
+  ```
+  * **false** if the service is not ready
+  * eg
+  ```json
+  { "ready?": false }
+  ```
 - parameters
   * none
   ```json
   {}
-  ```
-- returns
-  * **true** if the service is ready
-  * **false** if the service is not ready
-  * eg
-  ```json
-  { "ready?": true }
-  { "ready?": false }
   ```
 
 - - - -
 # GET alive?
-Useful as a kubernetes liveness probe.
-- parameters
-  * none
-  ```json
-  {}
-  ```
+Useful as a liveness probe.
 - returns
   * **true**
   * eg
   ```json
   { "ready?": true }
   ```
-
-- - - -
-# GET sha
 - parameters
   * none
   ```json
   {}
   ```
+
+- - - -
+# GET sha
+The git commit sha used to create the Docker image.
 - returns
-  * the git commit sha used to create the docker image
-  * eg
+  * The 40 character sha, eg
   ```json
   { "sha": "b28b3e13c0778fe409a50d23628f631f87920ce5" }
+  ```
+- parameters
+  * none
+  ```json
+  {}
   ```
 
 - - - -
