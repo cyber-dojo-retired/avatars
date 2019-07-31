@@ -10,7 +10,7 @@
 # API
   * [GET names](#names)
   * [GET ready?](#get-ready)
-  * [GET alive?](#alive)
+  * [GET alive?](#get-alive)
   * [GET sha](#get-sha)
 
 - - - -
@@ -54,7 +54,6 @@ Useful as a readiness probe.
   { "ready?": true }
   ```
   * **false** if the service is not ready
-  * eg
   ```json
   { "ready?": false }
   ```
@@ -69,7 +68,6 @@ Useful as a readiness probe.
 Useful as a liveness probe.
 - returns
   * **true**
-  * eg
   ```json
   { "ready?": true }
   ```
@@ -83,7 +81,8 @@ Useful as a liveness probe.
 # GET sha
 The git commit sha used to create the Docker image.
 - returns
-  * The 40 character sha, eg
+  * The 40 character sha string.
+  * eg
   ```json
   { "sha": "b28b3e13c0778fe409a50d23628f631f87920ce5" }
   ```
