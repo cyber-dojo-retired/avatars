@@ -18,8 +18,8 @@ if [ "${1}" != 'server' ]; then
   build_service_image avatars-client
 fi
 
-# Assuming we do not have any new differ commits, differ's latest commit
-# sha will match the image tag inside versioner's .env file.
+# Assuming we do not have any new avatars commits, avatars' latest
+# commit sha will match the image tag inside versioner's .env file.
 # This means we can tag to it and a [cyber-dojo up] call
 # will use the tagged image.
 readonly IMAGE=cyberdojo/avatars
