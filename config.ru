@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $stdout.sync = true
 $stderr.sync = true
 
@@ -16,4 +18,4 @@ require_relative 'src/externals'
 require_relative 'src/rack_dispatcher'
 externals = Externals.new
 avatars = Avatars.new(externals)
-run RackDispatcher.new(avatars, Rack::Request)
+run RackDispatcher.new(avatars)

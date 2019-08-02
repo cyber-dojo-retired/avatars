@@ -7,13 +7,12 @@ require 'rack'
 
 class RackDispatcher
 
-  def initialize(avatars, request_class)
+  def initialize(avatars)
     @avatars = avatars
-    @request_class = request_class
   end
 
-  def call(env)
-    request = @request_class.new(env)
+  def call(env, request_class = Rack::Request)
+    request = request_class.new(env)
     path = request.path_info
     body = request.body.read
     name,args = HttpJsonArgs.new(body).get(path)

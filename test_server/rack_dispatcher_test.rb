@@ -141,9 +141,9 @@ class RackDispatcherTest < AvatarsTestBase
 
   def rack_call(name, args)
     @avatars ||= Avatars.new(externals)
-    rack = RackDispatcher.new(@avatars, RackRequestStub)
+    rack = RackDispatcher.new(@avatars)
     env = { path_info:name, body:args }
-    rack.call(env)
+    rack.call(env, RackRequestStub)
   end
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - -
