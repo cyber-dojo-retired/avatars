@@ -41,18 +41,18 @@ class Avatars
 
   def json_response(name, result)
     json = { name => result }
-    body = JSON.fast_generate(json)
-    [ 200,
-      { 'Content-Type' => 'application/json' },
-      [ body ]
-    ]
+    response_200('application/json', JSON.fast_generate(json))
   end
 
   def jpg_response(name)
     filename = "#{IMAGES_DIR}/#{name}.jpg"
+    response_200('image/jpg', IO.binread(filename))
+  end
+
+  def response_200(type, body)
     [ 200,
-      { 'Content-Type' => 'image/jpg' },
-      [ IO.binread(filename) ]
+      { 'Content-Type' => type },
+      [ body ]
     ]
   end
 
