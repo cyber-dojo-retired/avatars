@@ -14,34 +14,34 @@ class RackDispatcherTest < AvatarsTestBase
   # - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   test '131', 'sha 200' do
-    assert_200_json('sha') do |response|
+    assert_200_json('/sha') do |response|
       assert_equal ENV['SHA'], response['sha']
     end
   end
 
   test '132', 'alive 200' do
-    assert_200_json('alive') do |response|
+    assert_200_json('/alive') do |response|
       assert_equal true, response['alive?']
     end
   end
 
   test '133', 'ready 200' do
-    assert_200_json('ready') do |response|
+    assert_200_json('/ready') do |response|
       assert_equal true, response['ready?']
     end
   end
 
   test '134', 'names 200' do
-    assert_200_json('names') do |response|
+    assert_200_json('/names') do |response|
       assert_equal expected_names, response['names']
     end
   end
 
   test '135', 'image 200' do
-    assert_200_img('image/0') do |response|
+    assert_200_img('/image/0') do |response|
       assert_equal 38453, response.bytesize
     end
-    assert_200_img('image/63') do |response|
+    assert_200_img('/image/63') do |response|
       assert_equal 41129, response.bytesize
     end
   end
@@ -52,7 +52,7 @@ class RackDispatcherTest < AvatarsTestBase
 
   test 'E2A',
   'dispatch returns 400 when method name is unknown' do
-    assert_dispatch_error('xyz', 400, 'unknown path')
+    assert_dispatch_error('/xyz', 400, 'unknown path')
   end
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -72,13 +72,13 @@ class RackDispatcherTest < AvatarsTestBase
   test 'F1A',
   'dispatch returns 500 status when implementation raises' do
     @avatars = AvatarsShaRaiser.new(ArgumentError, 'wibble')
-    assert_dispatch_error('sha', 500, 'wibble')
+    assert_dispatch_error('/sha', 500, 'wibble')
   end
 
   test 'F1B',
   'dispatch returns 500 status when implementation has syntax error' do
     @avatars = AvatarsShaRaiser.new(SyntaxError, 'fubar')
-    assert_dispatch_error('sha', 500, 'fubar')
+    assert_dispatch_error('/sha', 500, 'fubar')
   end
 
   private
@@ -104,23 +104,23 @@ class RackDispatcherTest < AvatarsTestBase
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  def assert_dispatch_error(name, status, message)
+  def assert_dispatch_error(path, status, message)
     @avatars ||= Object.new
-    response,stderr = with_captured_stderr { rack_call(name) }
+    response,stderr = with_captured_stderr { rack_call(path) }
     assert_equal status, response[0], "message:#{message},stderr:#{stderr}"
     assert_equal({ 'Content-Type' => 'application/json' }, response[1])
-    assert_json_exception(response[2][0], name, message)
-    assert_json_exception(stderr,         name, message)
+    assert_json_exception(response[2][0], path, message)
+    assert_json_exception(stderr,         path, message)
   end
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  def assert_json_exception(s, name, message)
+  def assert_json_exception(s, path, message)
     json = JSON.parse!(s)
     exception = json['exception']
     refute_nil exception
     diagnostic = "path:#{__LINE__}"
-    assert_equal '/'+name, exception['path'], diagnostic
+    assert_equal path, exception['path'], diagnostic
     diagnostic = "exception['class']:#{__LINE__}"
     assert_equal 'AvatarsService', exception['class'], diagnostic
     diagnostic = "exception['message']:#{__LINE__}"
@@ -133,11 +133,10 @@ class RackDispatcherTest < AvatarsTestBase
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  def rack_call(name)
+  def rack_call(path)
     @avatars ||= Avatars.new
     rack = RackDispatcher.new(@avatars)
-    env = { path_info:name }
-    rack.call(env, RackRequestStub)
+    rack.call(path, RackRequestStub)
   end
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - -

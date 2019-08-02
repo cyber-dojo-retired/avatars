@@ -2,12 +2,12 @@ require 'ostruct'
 
 class RackRequestStub
 
-  def initialize(env)
-    @env = env
+  def initialize(path)
+    @path = path
   end
 
   def path_info
-    "/#{@env[:path_info]}"
+    @path
   end
 
 end
