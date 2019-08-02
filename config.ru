@@ -12,8 +12,6 @@ unless ENV['NO_PROMETHEUS']
 end
 
 require_relative 'src/avatars'
-require_relative 'src/externals'
 require_relative 'src/rack_dispatcher'
-externals = Externals.new
-avatars = Avatars.new(externals)
+avatars = Avatars.new
 run RackDispatcher.new(avatars)

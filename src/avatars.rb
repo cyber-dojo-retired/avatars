@@ -2,8 +2,7 @@
 
 class Avatars
 
-  def initialize(externals)
-    @externals = externals
+  def initialize
     @names = Dir["/app/images/*"].map{ |pathname|
       File.basename(pathname, '.jpg')
     }.sort
