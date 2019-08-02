@@ -8,10 +8,11 @@
 
 - - - -
 # API
-  * [GET names](#names)
-  * [GET ready?](#get-ready)
-  * [GET alive?](#get-alive)
   * [GET sha](#get-sha)
+  * [GET alive?](#get-alive)
+  * [GET ready?](#get-ready)
+  * [GET names](#get-names)
+  * [GET image(n)](#get-imagen)
 
 - - - -
 # JSON in, JSON out  
