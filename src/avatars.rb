@@ -5,25 +5,30 @@ require 'json'
 class Avatars
 
   def initialize
-    @names = Dir["/app/images/*"].map{ |pathname|
-      File.basename(pathname, '.jpg')
-    }.sort
+    @sha_response = json_response('sha', ENV['SHA'])
+    @alive_response = json_response('alive?', true)
+    @ready_response = json_response('ready?', true)
+    @names_response = json_response('names', 
+      Dir["/app/images/*"].map{ |pathname|
+        File.basename(pathname, '.jpg')
+      }.sort
+    )
   end
 
   def sha
-    json_response('sha', ENV['SHA'])
+    @sha_response
   end
 
   def alive?
-    json_response('alive?', true)
+    @alive_response
   end
 
   def ready?
-    json_response('ready?', true)
+    @ready_response
   end
 
   def names
-    json_response('names', @names)
+    @names_response
   end
 
   #def image(n)
@@ -47,7 +52,7 @@ class Avatars
     filename = "/app/images/#{name}.jpg"
     [ 200,
       { 'Content-Type' => 'image/jpg' },
-      IO.binread(filename)
+      [ IO.binread(filename) ]s
     ]
   end
 =end

@@ -5,17 +5,13 @@ require 'json'
 
 class HttpJsonArgs
 
-  # Checks for arguments synactic correctness
-  # Exception messages use the words 'body' and 'path'
-  # to match RackDispatcher's exception keys.
-
   def initialize(body)
     @args = json_parse(body)
     unless @args.is_a?(Hash)
-      fail HttpJson::RequestError, 'body is not JSON Hash'
+      raise request_error('body is not JSON Hash')
     end
   rescue JSON::ParserError
-    fail HttpJson::RequestError, 'body is not JSON'
+    raise request_error('body is not JSON')
   end
 
   # - - - - - - - - - - - - - - - -
@@ -25,9 +21,10 @@ class HttpJsonArgs
     when '/sha'   then ['sha',[]]
     when '/alive' then ['alive?',[]]
     when '/ready' then ['ready?',[]]
-    when '/names'  then ['names',[]]
+    when '/names' then ['names',[]]
+    #when '/name'  then ['name',[n]]
     else
-      raise HttpJson::RequestError, 'unknown path'
+      raise request_error('unknown path')
     end
   end
 
@@ -39,6 +36,14 @@ class HttpJsonArgs
     else
       JSON.parse(body)
     end
+  end
+
+  # - - - - - - - - - - - - - - - -
+
+  def request_error(text)
+    # Exception messages use the words 'body' and 'path'
+    # to match RackDispatcher's exception keys.
+    HttpJson::RequestError.new(text)
   end
 
 end

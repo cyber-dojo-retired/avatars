@@ -4,7 +4,7 @@
 
 - The source for the [cyberdojo/avatars](https://hub.docker.com/r/cyberdojo/avatars/tags) Docker image.
 - A docker-containerized stateless micro-service for [https://cyber-dojo.org](http://cyber-dojo.org).
-- Serves the names and png images for a set of avatars.
+- Serves the names and jpg images for a set of avatars.
 
 - - - -
 # API
