@@ -22,7 +22,7 @@ class HttpJsonArgs
     when '/alive' then ['alive?',[]]
     when '/ready' then ['ready?',[]]
     when '/names' then ['names',[]]
-    #when '/name'  then ['name',[n]]
+    when '/image' then ['image',[n]]
     else
       raise request_error('unknown path')
     end
@@ -36,6 +36,40 @@ class HttpJsonArgs
     else
       JSON.parse(body)
     end
+  end
+
+  # - - - - - - - - - - - - - - - -
+
+  def n
+    checked_arg(:well_formed_n?)
+  end
+
+  def well_formed_n?(arg)
+    arg.is_a?(Integer) && (0..63).include?(arg)
+  end
+
+  # - - - - - - - - - - - - - - - -
+
+  def checked_arg(validator)
+    name = caller_locations(1,1)[0].label
+    unless @args.has_key?(name)
+      raise missing(name)
+    end
+    arg = @args[name]
+    unless self.send(validator, arg)
+      raise malformed(name)
+    end
+    arg
+  end
+
+  # - - - - - - - - - - - - - - - -
+
+  def missing(arg_name)
+    request_error("#{arg_name} is missing")
+  end
+
+  def malformed(arg_name)
+    request_error("#{arg_name} is malformed")
   end
 
   # - - - - - - - - - - - - - - - -

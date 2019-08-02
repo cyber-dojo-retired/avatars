@@ -8,11 +8,13 @@ class Avatars
     @sha_response = json_response('sha', ENV['SHA'])
     @alive_response = json_response('alive?', true)
     @ready_response = json_response('ready?', true)
-    @names_response = json_response('names', 
-      Dir["/app/images/*"].map{ |pathname|
-        File.basename(pathname, '.jpg')
-      }.sort
-    )
+    names = Dir["#{IMAGES_DIR}/*"].map{ |pathname|
+      File.basename(pathname, '.jpg')
+    }.sort
+    @names_response = json_response('names', names)
+    @image_responses = (0..63).map do |n|
+      jpg_response(names[n])
+    end
   end
 
   def sha
@@ -31,9 +33,9 @@ class Avatars
     @names_response
   end
 
-  #def image(n)
-  #  jpg_response(@names[n])
-  #end
+  def image(n)
+    @image_responses[n]
+  end
 
   private
 
@@ -46,15 +48,14 @@ class Avatars
     ]
   end
 
-=begin
   def jpg_response(name)
-    # TODO: cache binread result
-    filename = "/app/images/#{name}.jpg"
+    filename = "#{IMAGES_DIR}/#{name}.jpg"
     [ 200,
       { 'Content-Type' => 'image/jpg' },
-      [ IO.binread(filename) ]s
+      [ IO.binread(filename) ]
     ]
   end
-=end
+
+  IMAGES_DIR = '/app/images'
 
 end
