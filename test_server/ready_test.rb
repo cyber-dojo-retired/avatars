@@ -10,7 +10,13 @@ class ReadyTest < AvatarsTestBase
 
   test '602',
   %w( its ready ) do
-    assert avatars.ready?
+    assert ready?
+  end
+
+  private
+  
+  def ready?
+    JSON.parse(avatars.ready?[2][0])['ready?']
   end
 
 end

@@ -18,7 +18,7 @@ class ShaTest < AvatarsTestBase
   private
 
   def sha
-    avatars.sha
+    JSON.parse(avatars.sha[2][0])['sha']
   end
 
 end

@@ -10,7 +10,13 @@ class AliveTest < AvatarsTestBase
 
   test '93b',
   %w( its alive ) do
-    assert avatars.alive?
+    assert alive?
+  end
+
+  private
+
+  def alive?
+    JSON.parse(avatars.alive?[2][0])['alive?']
   end
 
 end
