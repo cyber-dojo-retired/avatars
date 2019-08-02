@@ -1,4 +1,5 @@
 *
+!images/
 !src/
 !config.ru
 !up.sh
