@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'http_json/request_error'
-require_relative 'http_json_args'
+require_relative 'http/request_error'
+require_relative 'http_args'
 require 'json'
 require 'rack'
 
@@ -14,19 +14,18 @@ class RackDispatcher
   def call(env, request_class = Rack::Request)
     request = request_class.new(env)
     path = request.path_info
-    body = request.body.read
-    name,args = HttpJsonArgs.new(body).get(path)
+    name,args = HttpArgs.new.get(path)
     @avatars.public_send(name, *args)
-  rescue HttpJson::RequestError => error
-    json_error_response(400, path, body, error)
+  rescue Http::RequestError => error
+    json_error_response(400, path, error)
   rescue Exception => error
-    json_error_response(500, path, body, error)
+    json_error_response(500, path, error)
   end
 
   private
 
-  def json_error_response(status, path, body, error)
-    json = diagnostic(path, body, error)
+  def json_error_response(status, path, error)
+    json = diagnostic(path, error)
     body = JSON.pretty_generate(json)
     $stderr.puts(body)
     $stderr.flush
@@ -38,10 +37,9 @@ class RackDispatcher
 
   # - - - - - - - - - - - - - - - -
 
-  def diagnostic(path, body, error)
+  def diagnostic(path, error)
     { 'exception' => {
         'path' => path,
-        'body' => body,
         'class' => 'AvatarsService',
         'message' => error.message,
         'backtrace' => error.backtrace

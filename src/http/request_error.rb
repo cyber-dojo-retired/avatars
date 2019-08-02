@@ -1,5 +1,5 @@
 
-module HttpJson
+module Http
 
   class RequestError < RuntimeError
 
