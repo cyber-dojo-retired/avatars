@@ -1,6 +1,6 @@
 require_relative 'hex_mini_test'
 require_relative '../src/externals'
-require_relative '../src/differ_service'
+require_relative '../src/avatars_service'
 
 class ClientTestBase < HexMiniTest
 
@@ -12,8 +12,8 @@ class ClientTestBase < HexMiniTest
     @externals ||= Externals.new
   end
 
-  def differ
-    @differ ||= DifferService.new(externals)
+  def avatars
+    @avatars ||= AvatarsService.new(externals)
   end
 
 end

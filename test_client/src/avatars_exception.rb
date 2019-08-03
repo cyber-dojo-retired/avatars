@@ -1,6 +1,6 @@
 require_relative 'http_json/service_exception'
 
-class DifferException < HttpJson::ServiceException
+class AvatarsException < HttpJson::ServiceException
 
   def initialize(message)
     super

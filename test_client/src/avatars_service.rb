@@ -1,12 +1,12 @@
 require_relative 'http_json/request_packer'
 require_relative 'http_json/response_unpacker'
-require_relative 'differ_exception'
+require_relative 'avatars_exception'
 
-class DifferService
+class AvatarsService
 
   def initialize(externals)
-    requester = HttpJson::RequestPacker.new(externals.http, 'differ-server', 4567)
-    @http = HttpJson::ResponseUnpacker.new(requester, DifferException)
+    requester = HttpJson::RequestPacker.new(externals.http, 'avatars-server', 5027)
+    @http = HttpJson::ResponseUnpacker.new(requester, AvatarsException)
   end
 
   def sha
@@ -21,11 +21,8 @@ class DifferService
     @http.get(__method__, {})
   end
 
-  def diff(id, old_files, new_files)
+  def image(n)
     @http.get(__method__, {
-      id:id,
-      old_files:old_files,
-      new_files:new_files
     })
   end
 

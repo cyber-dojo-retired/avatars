@@ -1,8 +1,11 @@
-require 'rack'
-require_relative 'src/demo'
-require_relative 'src/differ_service'
+$stdout.sync = true
+$stderr.sync = true
+
+require_relative 'src/avatars_service'
+require_relative 'src/client'
 require_relative 'src/externals'
+require 'rack'
 
 externals = Externals.new
-differ = DifferService.new(externals)
-run Demo.new(differ)
+avatars = AvatarsService.new(externals)
+run Client.new(avatars)
