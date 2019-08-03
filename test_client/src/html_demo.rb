@@ -13,6 +13,7 @@ class HtmlDemo
     src += sha
     src += alive?
     src += ready?
+    src += image
   end
 
   private
@@ -32,6 +33,14 @@ class HtmlDemo
   def ready?
     duration,result = timed { avatars.ready? }
     pre('ready?', duration, 'LightGreen', result)
+  end
+
+  def image
+    "<img height='35' width='35' src='http://#{ip}:5027/image/15' />"
+  end
+
+  def ip
+    ARGV[0]
   end
 
   def timed
