@@ -2,7 +2,6 @@
 set -e
 
 # - - - - - - - - - - - - - - - - - - - - - -
-
 ip_address()
 {
   if [ -n "${DOCKER_MACHINE_NAME}" ]; then
@@ -15,8 +14,7 @@ ip_address()
 readonly IP_ADDRESS=$(ip_address)
 
 # - - - - - - - - - - - - - - - - - - - - - -
-
-wait_until_ready()
+wait_briefly_until_ready()
 {
   local -r name="${1}"
   local -r port="${2}"
@@ -42,12 +40,16 @@ wait_until_ready()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-
 ready()
 {
   local -r port="${1}"
-  local -r path=ready
-  local -r ready_cmd="curl --output $(ready_response_filename) --silent --fail -X GET http://${IP_ADDRESS}:${port}/${path}"
+  local -r path=ready?
+  local -r ready_cmd="\
+    curl \
+      --output $(ready_response_filename) \
+      --silent \
+      --fail \
+      -X GET http://${IP_ADDRESS}:${port}/${path}"
   rm -f "$(ready_response_filename)"
   if ${ready_cmd} && [ "$(ready_response)" = '{"ready?":true}' ]; then
     true
@@ -57,19 +59,18 @@ ready()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-
 ready_response()
 {
   cat "$(ready_response_filename)"
 }
 
+# - - - - - - - - - - - - - - - - - - -
 ready_response_filename()
 {
-  echo /tmp/curl-ready-output
+  echo /tmp/curl-avatars-ready-output
 }
 
 # - - - - - - - - - - - - - - - - - - -
-
 exit_unless_clean()
 {
   local -r name="${1}"
@@ -86,7 +87,6 @@ exit_unless_clean()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-
 echo_docker_log()
 {
   local -r name="${1}"
@@ -98,8 +98,7 @@ echo_docker_log()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-
-container_up()
+container_up_ready_and_clean()
 {
   local -r root_dir="${1}"
   local -r service_name="${2}"
@@ -112,7 +111,7 @@ container_up()
     -d \
     --force-recreate \
       "${service_name}"
-  wait_until_ready  "${container_name}" "${port}"
+  wait_briefly_until_ready "${container_name}" "${port}"
   exit_unless_clean "${container_name}"
 }
 
@@ -120,7 +119,7 @@ container_up()
 
 readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
 
-container_up "${ROOT_DIR}" avatars-server 5027
+container_up_ready_and_clean "${ROOT_DIR}" avatars-server 5027
 if [ "${1}" != 'server' ]; then
-  container_up "${ROOT_DIR}" avatars-client 5028
+  container_up_ready_and_clean "${ROOT_DIR}" avatars-client 5028
 fi
