@@ -99,27 +99,28 @@ echo_docker_log()
 
 # - - - - - - - - - - - - - - - - - - -
 
-readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
-
 container_up()
 {
+  local -r root_dir="${1}"
+  local -r service_name="${2}"
+  local -r container_name="test-${service_name}"
+  local -r port="${3}"
   echo
   docker-compose \
-    --file "${ROOT_DIR}/docker-compose.yml" \
+    --file "${root_dir}/docker-compose.yml" \
     up \
     -d \
     --force-recreate \
-    ${1}
+      "${service_name}"
+  wait_until_ready  "${container_name}" "${port}"
+  exit_unless_clean "${container_name}"
 }
 
 # - - - - - - - - - - - - - - - - - - -
 
-container_up avatars-server
-wait_until_ready  test-avatars-server 5027
-exit_unless_clean test-avatars-server
+readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
 
+container_up "${ROOT_DIR}" avatars-server 5027
 if [ "${1}" != 'server' ]; then
-  container_up avatars-client
-  #wait_until_ready  test-differ-client 5028
-  #exit_unless_clean test-differ-client
+  container_up "${ROOT_DIR}" avatars-client 5028
 fi
