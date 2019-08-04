@@ -1,0 +1,11 @@
+
+                    tests |      17 !=     0 | [32mtrue[0m
+                 failures |       1 ==     0 | [31mfalse[0m
+                   errors |       0 ==     0 | [32mtrue[0m
+                 warnings |       0 ==     0 | [32mtrue[0m
+                    skips |       0 ==     0 | [32mtrue[0m
+        duration(test)[s] |    0.02 <=     5 | [32mtrue[0m
+         coverage(src)[%] |   98.57 ==   100 | [31mfalse[0m
+        coverage(test)[%] |    98.4 ==   100 | [31mfalse[0m
+   lines(test)/lines(src) |    1.79 >=     3 | [31mfalse[0m
+     hits(src)/hits(test) |    0.57 >=   1.2 | [31mfalse[0m

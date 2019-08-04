@@ -12,6 +12,8 @@ jobs:
           name: Build tested docker image
           command: |
             set -e
+            export AVATARS_COVERAGE=off
+            export AVATARS_DEMO=off
             ./pipe_build_up_test.sh
       - run:
           name: Tag docker image

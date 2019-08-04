@@ -16,9 +16,9 @@ class Client
     result = @avatars.public_send(name, *args)
     json_response(200, { name => result })
   rescue HttpJson::RequestError => error
-    json_response(400, diagnostic(path, body, error))
+    json_response(400, diagnostic(path, error))
   rescue Exception => error
-    json_response(500, diagnostic(path, body, error))
+    json_response(500, diagnostic(path, error))
   end
 
   private

@@ -1,0 +1,19 @@
+Run options: --seed 32466
+
+# Running:
+
+.....Expected: "{\"x\":42}"
+  Actual: nil
+F...........SimpleCov failed with exit 1
+
+Finished in 0.019701s, 862.8812 runs/s, 2791.6745 assertions/s.
+
+  1) Failure:
+AvatarsClientTest#test_
+hex '7C0',
+'calling unknown method raises' [/app/test/avatars_client_test.rb:47]:
+Expected: "{\"x\":42}"
+  Actual: nil
+
+17 runs, 55 assertions, 1 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to /tmp/coverage. 192 / 195 LOC (98.46%) covered.

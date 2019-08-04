@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+# - - - - - - - - - - - - - - - - - - -
+root_dir()
+{
+  echo $( cd "$( dirname "${1}" )" && cd .. && pwd )
+}
+
 # - - - - - - - - - - - - - - - - - - - - - -
 ip_address()
 {
@@ -116,10 +122,5 @@ container_up_ready_and_clean()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-
-readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
-
-container_up_ready_and_clean "${ROOT_DIR}" avatars-server 5027
-if [ "${1}" != 'server' ]; then
-  container_up_ready_and_clean "${ROOT_DIR}" avatars-client 5028
-fi
+container_up_ready_and_clean "$(root_dir $0)" avatars-server 5027
+container_up_ready_and_clean "$(root_dir $0)" avatars-client 5028

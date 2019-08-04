@@ -13,7 +13,8 @@ class HtmlDemo
     src += sha
     src += alive?
     src += ready?
-    src += image
+    src += names
+    src += images
   end
 
   private
@@ -35,8 +36,25 @@ class HtmlDemo
     pre('ready?', duration, 'LightGreen', result)
   end
 
-  def image
-    "<img height='35' width='35' src='http://#{ip}:5027/image/15' />"
+  def names
+    duration,result = timed { avatars.names }
+    pre('names', duration, 'LightGreen', result)
+  end
+
+  def images
+    html = ''
+    html += '<table>'
+    8.times do |x|
+      html += '<tr>'
+      8.times do |y|
+        n = x * 8 + y;
+        html += '<td>'
+        html += "<img height='32' width='32' src='http://#{ip}:5027/image/#{n}' />"
+        html += '</td>'
+      end
+      html += '</tr>'
+    end
+    html
   end
 
   def ip

@@ -5,7 +5,7 @@ services:
 
   avatars-client:
     build:
-      context: test_client
+      context: client
     image: cyberdojo/avatars-client
     init: true
     container_name: test-avatars-client

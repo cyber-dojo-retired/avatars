@@ -21,9 +21,8 @@ class AvatarsService
     @http.get(__method__, {})
   end
 
-  def image(n)
-    @http.get(__method__, {
-    })
+  def names
+    @http.get(__method__, {})
   end
 
 end
