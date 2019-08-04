@@ -14,9 +14,7 @@ build_service_image()
 }
 
 build_service_image avatars-server
-if [ "${1}" != 'server' ]; then
-  build_service_image avatars-client
-fi
+build_service_image avatars-client
 
 # Assuming we do not have any new avatars commits, avatars' latest
 # commit sha will match the image tag inside versioner's .env file.
