@@ -8,7 +8,7 @@ class Avatars
     @sha_response = json_response('sha', ENV['SHA'])
     @alive_response = json_response('alive?', true)
     @ready_response = json_response('ready?', true)
-    names = Dir["#{IMAGES_DIR}/*"].map{ |pathname|
+    names = Dir["#{IMAGES_DIR}/*.jpg"].map{ |pathname|
       File.basename(pathname, '.jpg')
     }.sort
     @names_response = json_response('names', names)
