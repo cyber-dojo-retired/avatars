@@ -45,7 +45,7 @@ class RackDispatcherTest < AvatarsTestBase
       assert_equal 41129, response.bytesize
     end
     assert_200_img('png', '/image/all') do |response|
-      assert_equal 697467, response.bytesize
+      assert_equal 135761, response.bytesize
     end
   end
 
