@@ -38,11 +38,14 @@ class RackDispatcherTest < AvatarsTestBase
   end
 
   test '135', 'image 200' do
-    assert_200_img('/image/0') do |response|
+    assert_200_img('jpg', '/image/0') do |response|
       assert_equal 38453, response.bytesize
     end
-    assert_200_img('/image/63') do |response|
+    assert_200_img('jpg', '/image/63') do |response|
       assert_equal 41129, response.bytesize
+    end
+    assert_200_img('png', '/image/all') do |response|
+      assert_equal 697467, response.bytesize
     end
   end
 
@@ -92,10 +95,10 @@ class RackDispatcherTest < AvatarsTestBase
     yield JSON.parse(response[2][0])
   end
 
-  def assert_200_img(path)
+  def assert_200_img(type, path)
     response = rack_call(path)
     assert_equal 200, response[0]
-    assert_equal({ 'Content-Type' => 'image/jpg' }, response[1])
+    assert_equal({ 'Content-Type' => "image/#{type}" }, response[1])
     body = response[2][0]
     assert body.is_a?(String)
     assert_equal 'ASCII-8BIT', body.encoding.to_s

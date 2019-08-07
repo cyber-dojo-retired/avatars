@@ -76,4 +76,12 @@ class HttpArgsTest < AvatarsTestBase
     assert_equal expected, error.message
   end
 
+  # - - - - - - - - - - - - - - - - -
+
+  test 'e19', %w( image/all batch method ) do
+    name,args = HttpArgs.new.get('/image/all')
+    assert_equal 'image', name
+    assert_equal [:all], args    
+  end
+
 end

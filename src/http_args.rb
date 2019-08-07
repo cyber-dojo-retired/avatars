@@ -19,6 +19,9 @@ class HttpArgs
   private
 
   def id(s)
+    if s === 'all'
+      return :all
+    end
     if s === ''
       raise missing('id')
     end

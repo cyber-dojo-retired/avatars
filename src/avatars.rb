@@ -15,6 +15,7 @@ class Avatars
     @image_responses = (0..63).map do |n|
       jpg_response(names[n])
     end
+    @image_all = png_response('all')
   end
 
   def sha
@@ -34,7 +35,11 @@ class Avatars
   end
 
   def image(n)
-    @image_responses[n]
+    if n === :all
+      @image_all
+    else
+      @image_responses[n]
+    end
   end
 
   private
@@ -47,6 +52,11 @@ class Avatars
   def jpg_response(name)
     filename = "#{IMAGES_DIR}/#{name}.jpg"
     response_200('image/jpg', IO.binread(filename))
+  end
+
+  def png_response(name)
+    filename = "#{IMAGES_DIR}/#{name}.png"
+    response_200('image/png', IO.binread(filename))
   end
 
   def response_200(type, body)

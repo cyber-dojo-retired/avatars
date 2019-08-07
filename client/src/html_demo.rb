@@ -15,6 +15,7 @@ class HtmlDemo
     src += ready?
     src += names
     src += images
+    src += images_all
   end
 
   private
@@ -55,6 +56,10 @@ class HtmlDemo
       html += '</tr>'
     end
     html
+  end
+
+  def images_all
+    "<img height='128' width='128' src='http://#{ip}:5027/image/all' />" 
   end
 
   def ip
