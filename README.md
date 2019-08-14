@@ -6,6 +6,8 @@
 - A docker-containerized stateless micro-service for [https://cyber-dojo.org](http://cyber-dojo.org).
 - Serves the names and images (jpg/png) for a set of avatars.
 
+![all avatars](images/all.png?raw=true "all avatars")
+
 - - - -
 # API
   * [GET sha](#get-sha)
@@ -18,9 +20,10 @@
 # JSON in, JSON out  
 * All methods receive a JSON hash.
   * The hash contains any method arguments as key-value pairs.
-* All methods return a JSON hash.
-  * If the method completes, a key equals the method's name.
+* All methods except image(n) return a JSON hash.
+  * If the method completes a key equals the method's name.
   * If the method raises an exception, a key equals "exception".
+* The method image(n) returns a jpg/png image.
 
 - - - -
 ## GET names
@@ -33,8 +36,8 @@ Serves the avatars names.
       "alligator",
       "antelope",
       "bat",
-      "bear",      
       ...,
+      "whale",
       "wolf",
       "zebra"
     ]
@@ -45,6 +48,18 @@ Serves the avatars names.
   ```json
   {}
   ```
+
+- - - -
+# GET image(n)
+Serves the avatar image with the given index,
+or the avatar image showing all 64 avatars.
+- returns
+  * An image (eg jpg,png,gif,etc)
+- parameters
+  * if n == 'all', returns the 8x8 image showing all avatars.
+  * if n == 0..63, returns the image showing the n'th avatar,
+    eg, n==0 returns the 'alligator' image,
+    eg, n==63 returns the 'zebra' image.
 
 - - - -
 # GET ready?
