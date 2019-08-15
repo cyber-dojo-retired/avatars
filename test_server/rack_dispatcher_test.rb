@@ -95,6 +95,8 @@ class RackDispatcherTest < TestBase
     yield JSON.parse(response[2][0])
   end
 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - -
+
   def assert_200_img(type, path)
     response = rack_call(path)
     assert_equal 200, response[0]
