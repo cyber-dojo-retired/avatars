@@ -1,7 +1,7 @@
-require_relative 'avatars_test_base'
+require_relative 'test_base'
 require_relative 'expected_names'
 
-class NamesTest < AvatarsTestBase
+class NamesTest < TestBase
 
   def self.hex_prefix
     'FCF'

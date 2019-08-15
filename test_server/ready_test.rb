@@ -1,6 +1,6 @@
-require_relative 'avatars_test_base'
+require_relative 'test_base'
 
-class ReadyTest < AvatarsTestBase
+class ReadyTest < TestBase
 
   def self.hex_prefix
     '0B2'
@@ -14,7 +14,7 @@ class ReadyTest < AvatarsTestBase
   end
 
   private
-  
+
   def ready?
     JSON.parse(avatars.ready?[2][0])['ready?']
   end

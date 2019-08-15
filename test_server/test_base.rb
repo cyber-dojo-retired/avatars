@@ -1,7 +1,7 @@
 require_relative 'hex_mini_test'
 require_relative '../src/avatars'
 
-class AvatarsTestBase < HexMiniTest
+class TestBase < HexMiniTest
 
   def initialize(arg)
     super(arg)

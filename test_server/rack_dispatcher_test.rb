@@ -1,9 +1,9 @@
-require_relative 'avatars_test_base'
+require_relative 'test_base'
 require_relative 'expected_names'
 require_relative 'rack_request_stub'
 require_relative '../src/rack_dispatcher'
 
-class RackDispatcherTest < AvatarsTestBase
+class RackDispatcherTest < TestBase
 
   def self.hex_prefix
     '4AF'

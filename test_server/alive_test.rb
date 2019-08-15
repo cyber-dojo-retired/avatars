@@ -1,6 +1,6 @@
-require_relative 'avatars_test_base'
+require_relative 'test_base'
 
-class AliveTest < AvatarsTestBase
+class AliveTest < TestBase
 
   def self.hex_prefix
     '198'

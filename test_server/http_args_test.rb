@@ -1,8 +1,8 @@
-require_relative 'avatars_test_base'
+require_relative 'test_base'
 require_relative '../src/http_args'
 require_relative '../src/http/request_error'
 
-class HttpArgsTest < AvatarsTestBase
+class HttpArgsTest < TestBase
 
   def self.hex_prefix
     'EE7'
@@ -81,7 +81,7 @@ class HttpArgsTest < AvatarsTestBase
   test 'e19', %w( image/all batch method ) do
     name,args = HttpArgs.new.get('/image/all')
     assert_equal 'image', name
-    assert_equal [:all], args    
+    assert_equal [:all], args
   end
 
 end
