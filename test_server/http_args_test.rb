@@ -61,19 +61,13 @@ class HttpArgsTest < TestBase
   end
 
   test 'e18', %w( raises if image's id is malformed ) do
-  expected = 'id is malformed'
-    error = assert_raises(Http::RequestError) {
-      HttpArgs.new.get('/image/one')
-    }
-    assert_equal expected, error.message
-    error = assert_raises(Http::RequestError) {
-      HttpArgs.new.get('/image/123')
-    }
-    assert_equal expected, error.message
-    error = assert_raises(Http::RequestError) {
-      HttpArgs.new.get('/image/64')
-    }
-    assert_equal expected, error.message
+    error_paths = %w( /image/one /image/123 /image/64 )
+    error_paths.each do |error_path|
+      error = assert_raises(Http::RequestError) {
+        HttpArgs.new.get(error_path)
+      }
+      assert_equal 'id is malformed', error.message
+    end
   end
 
   # - - - - - - - - - - - - - - - - -
