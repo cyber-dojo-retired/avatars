@@ -18,14 +18,13 @@ if ! ${SH_DIR}/docker_containers_up.sh "$@" ; then
   exit 3
 fi
 
-${SH_DIR}/run_tests_in_containers.sh "$@"
-
-if [ "${AVATARS_COVERAGE}" != 'off' ]; then
-  open file://${SH_DIR}/../test_server/coverage/index.html
+if ${SH_DIR}/run_tests_in_containers.sh "$@" ; then
+  ${SH_DIR}/docker_containers_down.sh
+else
+  if [ "${AVATARS_COVERAGE}" != 'off' ] ; then
+    open file://${SH_DIR}/../test_server/coverage/index.html
+  fi
+  if [ "${AVATARS_DEMO}" != 'off' ] ; then
+    ${SH_DIR}/demo_html.sh
+  fi
 fi
-
-if [ "${AVATARS_DEMO}" != 'off' ]; then
-  ${SH_DIR}/demo_html.sh
-fi
-
-${SH_DIR}/docker_containers_down.sh
