@@ -13,9 +13,7 @@ services:
     read_only: true
     tmpfs: /tmp
     restart: 'no'
-    ports:
-      - 5028:5028
-
+    ports: [5028:5028]
 
   avatars-server:
     build:
@@ -24,16 +22,14 @@ services:
         - SHA
     image: cyberdojo/avatars
     container_name: test-avatars-server
-    environment:
-      - NO_PROMETHEUS
-    volumes:
-      - ./test_server:/app/test:ro
-    ports:
-      - 5027:5027
+    environment: [NO_PROMETHEUS]
+    ports: [5027:5027]
     init: true
     user: nobody
     read_only: true
+    restart: 'no'
+    volumes:
+      - ./test_server:/app/test:ro
     tmpfs:
       - /tmp:exec,mode=1777 # Sticky bit must be set on /tmp otherwise
                             # Dir.mktmpdir(id,'/tmp') complains
-    restart: 'no'
