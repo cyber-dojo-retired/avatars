@@ -80,7 +80,7 @@ ready_response_filename()
 exit_unless_clean()
 {
   local -r name="${1}"
-  local -r docker_log=$(docker logs "${name}")
+  local -r docker_log=$(docker logs "${name}" 2>&1)
   local -r line_count=$(echo -n "${docker_log}" | grep -c '^')
   echo -n "Checking ${name} started cleanly..."
   if [ "${line_count}" == '3' ]; then
@@ -122,6 +122,6 @@ container_up_ready_and_clean()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-export NO_PROMETHEUS=true 
+export NO_PROMETHEUS=true
 container_up_ready_and_clean "$(root_dir $0)" avatars-server 5027
 container_up_ready_and_clean "$(root_dir $0)" avatars-client 5028
