@@ -13,7 +13,8 @@ services:
     read_only: true
     tmpfs: /tmp
     restart: 'no'
-    ports: [5028:5028]
+    ports:
+      - 5028:5028
 
   avatars-server:
     build:
@@ -23,7 +24,8 @@ services:
     image: cyberdojo/avatars
     container_name: test-avatars-server
     environment: [NO_PROMETHEUS]
-    ports: [5027:5027]
+    ports:
+      - 5027:5027
     init: true
     user: nobody
     read_only: true
