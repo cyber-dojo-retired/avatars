@@ -1,6 +1,3 @@
-# Default values for cyber-dojo-service.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
 
 fullnameOverride: "avatars"
 
@@ -14,6 +11,9 @@ volumes:
 
 service:
   port: 5027
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "5027"
 
 containers:
   - name: avatars
