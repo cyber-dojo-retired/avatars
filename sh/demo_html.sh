@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+readonly SH_DIR="$( cd "$( dirname "${0}" )" && pwd )"
 readonly TMP_HTML_FILENAME=/tmp/avatars-demo.html
 
 ip_address()
@@ -11,6 +12,9 @@ ip_address()
     echo localhost
   fi
 }
+
+${SH_DIR}/build_docker_images.sh
+${SH_DIR}/docker_containers_up.sh
 
 docker exec \
   test-avatars-client \
