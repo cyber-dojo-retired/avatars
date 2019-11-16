@@ -14,4 +14,5 @@ end
 require_relative 'src/avatars'
 require_relative 'src/rack_dispatcher'
 avatars = Avatars.new
-run RackDispatcher.new(avatars)
+dispatcher = RackDispatcher.new(avatars)
+run dispatcher
