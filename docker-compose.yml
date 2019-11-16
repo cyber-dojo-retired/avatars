@@ -18,10 +18,10 @@ services:
   avatars-server:
     build:
       context: .
-      args: [SHA]
+      args: [ SHA ]
     image: cyberdojo/avatars
     container_name: test-avatars-server
-    environment: [NO_PROMETHEUS]
+    environment: [ NO_PROMETHEUS ]
     ports: [ "5027:5027" ]
     init: true
     user: nobody
