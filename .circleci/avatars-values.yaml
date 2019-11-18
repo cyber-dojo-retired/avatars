@@ -25,9 +25,11 @@ containers:
         mountPath: /tmp
         readOnly: false
     resources:
-      limits:
-        memory: 32Mi
       requests:
+        cpu: 50m
+        memory: 32Mi
+      limits:
+        cpu: 100m
         memory: 32Mi
     livenessProbe:
       path: /alive?
