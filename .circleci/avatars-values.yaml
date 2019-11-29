@@ -3,22 +3,27 @@ fullnameOverride: "avatars"
 
 replicaCount: 3
 
-volumes:
-  - name: avatars-tmp-dir
-    emptyDir:
-      medium: Memory
-      sizeLimit: "64Mi"
-
 service:
   port: 5027
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "5027"
 
+volumes:
+  - name: avatars-tmp-dir
+    emptyDir:
+      medium: Memory
+      sizeLimit: "64Mi"
+
+podSecurityContext:
+  runAsUser: 65534 # nobody
+  fsGroup: 65534 # nobody
+
 containers:
   - name: avatars
     image: cyberdojo/avatars
     securityContext:
+      allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
     volumeMounts:
       - name: avatars-tmp-dir

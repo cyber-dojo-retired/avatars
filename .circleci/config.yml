@@ -55,7 +55,7 @@ jobs:
               -f .circleci/avatars-values.yaml \
               beta-avatars \
               praqma/cyber-dojo-service \
-              --version 0.2.3
+              --version 0.2.4
 
   deploy-to-prod:
     docker:
@@ -78,7 +78,7 @@ jobs:
               -f .circleci/avatars-values.yaml \
               prod-avatars \
               praqma/cyber-dojo-service \
-              --version 0.2.3
+              --version 0.2.4
 
 workflows:
   version: 2
