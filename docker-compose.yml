@@ -17,12 +17,12 @@ services:
 
   avatars-server:
     build:
-      context: .
-      args: [ SHA ]
-    image: cyberdojo/avatars
+      context: app
+      args: [ COMMIT_SHA ]
+    image: ${CYBER_DOJO_AVATARS_IMAGE}
     container_name: test-avatars-server
     environment: [ NO_PROMETHEUS ]
-    ports: [ "5027:5027" ]
+    ports: [ "${CYBER_DOJO_AVATARS_PORT}:${CYBER_DOJO_AVATARS_PORT}" ]
     init: true
     user: nobody
     read_only: true

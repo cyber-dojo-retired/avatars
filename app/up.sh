@@ -8,4 +8,4 @@ rackup  \
   --port 5027       \
   --server thin     \
   --warn            \
-    config.ru
+    /app/config.ru
