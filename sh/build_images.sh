@@ -1,12 +1,10 @@
-#!/bin/bash
-set -e
+#!/bin/bash -Eeu
 
 readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
 
 #- - - - - - - - - - - - - - - - - - - - - - - -
 build_images()
 {
-  echo
   docker-compose \
     --file "${ROOT_DIR}/docker-compose.yml" \
     build \
