@@ -6,7 +6,7 @@ if [ "${1}" == '-h' ] || [ "${1}" == '--help' ]; then
   echo
   echo 'Use: pipe_build_up_test.sh [HEX-ID...]'
   echo 'Options:'
-  echo '   HEX-ID  - only run the tests matching this identifier'
+  echo '   HEX-ID...  - only run the tests matching these identifiers'
   exit 0
 fi
 
