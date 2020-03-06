@@ -6,7 +6,7 @@
 - A docker-containerized stateless micro-service for [https://cyber-dojo.org](http://cyber-dojo.org).
 - Serves the names and images (jpg/png) for a set of avatars.
 
-![all avatars](images/all.png?raw=true "all avatars")
+![all avatars](app/images/all.png?raw=true "all avatars")
 
 - - - -
 # API
