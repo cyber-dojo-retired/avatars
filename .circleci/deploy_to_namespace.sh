@@ -24,4 +24,4 @@ helm upgrade \
   -f .circleci/avatars-values.yaml \
   ${NAMESPACE}-avatars \
   praqma/cyber-dojo-service \
-  --version 0.2.4
+  --version 0.2.5
