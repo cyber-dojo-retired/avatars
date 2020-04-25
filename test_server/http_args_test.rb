@@ -1,6 +1,6 @@
 require_relative 'test_base'
-require_relative '../src/http_args'
-require_relative '../src/http/request_error'
+require_source 'http_args'
+require_source 'http/request_error'
 
 class HttpArgsTest < TestBase
 

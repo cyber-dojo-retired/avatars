@@ -11,8 +11,8 @@ unless ENV['NO_PROMETHEUS']
   use Prometheus::Middleware::Exporter
 end
 
-require_relative 'src/avatars'
-require_relative 'src/rack_dispatcher'
+require_relative 'source/avatars'
+require_relative 'source/rack_dispatcher'
 avatars = Avatars.new
 dispatcher = RackDispatcher.new(avatars)
 run dispatcher

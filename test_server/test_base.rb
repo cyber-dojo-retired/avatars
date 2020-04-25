@@ -1,5 +1,10 @@
 require_relative 'hex_mini_test'
-require_relative '../src/avatars'
+
+def require_source(s)
+  require_relative "../source/#{s}"
+end
+
+require_source 'avatars'
 
 class TestBase < HexMiniTest
 

@@ -10,9 +10,9 @@
 
 - - - -
 # API
-  * [GET sha](#get-sha)
   * [GET alive?](#get-alive)
   * [GET ready?](#get-ready)
+  * [GET sha](#get-sha)
   * [GET names](#get-names)
   * [GET image(n)](#get-imagen)
 
@@ -62,6 +62,20 @@ or the avatar image showing all 64 avatars.
     eg, n==63 returns the 'zebra' image.
 
 - - - -
+# GET alive?
+Useful as a liveness probe.
+- returns
+  * **true**
+  ```json
+  { "ready?": true }
+  ```
+- parameters
+  * none
+  ```json
+  {}
+  ```
+
+- - - -
 # GET ready?
 Useful as a readiness probe.
 - returns
@@ -72,20 +86,6 @@ Useful as a readiness probe.
   * **false** if the service is not ready
   ```json
   { "ready?": false }
-  ```
-- parameters
-  * none
-  ```json
-  {}
-  ```
-
-- - - -
-# GET alive?
-Useful as a liveness probe.
-- returns
-  * **true**
-  ```json
-  { "ready?": true }
   ```
 - parameters
   * none
