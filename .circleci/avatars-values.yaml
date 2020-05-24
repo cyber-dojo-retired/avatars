@@ -21,7 +21,6 @@ podSecurityContext:
 
 containers:
   - name: avatars
-    image: cyberdojo/avatars
     securityContext:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
