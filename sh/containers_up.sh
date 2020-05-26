@@ -130,8 +130,8 @@ exit_unless_clean()
   # 3 lines on Thin (Unicorn=6, Puma=6)
   #Thin web server (v1.7.2 codename Bachmanity)
   #Maximum connections set to 1024
-  #Listening on 0.0.0.0:5027, CTRL+C to stop  
-  if [ "${line_count}" == '3' ]; then
+  #Listening on 0.0.0.0:5027, CTRL+C to stop
+  if [ "${line_count}" == '6' ]; then
     echo 'OK'
   else
     echo 'FAIL'

@@ -1,9 +1,12 @@
-#!/bin/bash
+#!/bin/bash -Eeu
+
+readonly MY_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+export RUBYOPT='-W2'
 
 rackup             \
   --env production \
-  --host 0.0.0.0   \
   --port 5028      \
-  --server thin    \
+  --server puma    \
   --warn           \
-    config.ru
+    ${MY_DIR}/config.ru
