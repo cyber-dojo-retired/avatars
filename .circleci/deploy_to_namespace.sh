@@ -35,6 +35,7 @@ helm_upgrade \
    "${CYBER_DOJO_AVATARS_IMAGE}" \
    "${CYBER_DOJO_AVATARS_TAG}" \
    "${CYBER_DOJO_AVATARS_PORT}" \
-   ".circleci/avatars-values.yml" \
+   ".circleci/k8s-general-values.yml" \
+   ".circleci/k8s-specific-values.yml" \
    "avatars" \
    "praqma/cyber-dojo-service --version 0.2.5"
