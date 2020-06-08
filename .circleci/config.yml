@@ -42,9 +42,6 @@ workflows:
       - deploy-to-beta:
           context: cyberdojo-context
           requires: [ build-publish ]
-      - approve-to-prod:
-          type: approval
-          requires: [ deploy-to-beta ]
       - deploy-to-prod:
           context: cyberdojo-context
           requires: [ approve-to-prod ]
