@@ -31,11 +31,8 @@ readonly NAMESPACE="${1}" # beta | prod
 readonly CYBER_DOJO_AVATARS_TAG="${CIRCLE_SHA1:0:7}"
 
 helm_upgrade \
-   "${NAMESPACE}" \
+   "${NAMESPACE}" "avatars" "praqma/cyber-dojo-service --version 0.2.5" \
    "${CYBER_DOJO_AVATARS_IMAGE}" \
    "${CYBER_DOJO_AVATARS_TAG}" \
    "${CYBER_DOJO_AVATARS_PORT}" \
-   ".circleci/k8s-general-values.yml" \
-   ".circleci/k8s-specific-values.yml" \
-   "avatars" \
-   "praqma/cyber-dojo-service --version 0.2.5"
+   ".circleci/k8s-general-values.yml"
