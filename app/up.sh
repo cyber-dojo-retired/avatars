@@ -2,7 +2,7 @@
 
 readonly MY_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-export RUBYOPT='-W2'
+export RUBYOPT='-W2 --jit'
 
 rackup  \
   --env production  \
