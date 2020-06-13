@@ -77,32 +77,6 @@ ready_response_filename()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-XXX_exit_if_unclean()
-{
-  local -r service_name="${1}"
-  local -r container_name=$(service_container ${service_name})
-
-  local log=$(docker logs "${container_name}" 2>&1)
-
-  local -r mismatched_indent_warning="application(.*): warning: mismatched indentations at 'rescue' with 'begin'"
-  log=$(strip_known_warning "${log}" "${mismatched_indent_warning}")
-
-  printf "Checking ${container_name} started cleanly..."
-  local -r line_count=$(echo -n "${log}" | grep -c '^')
-  # 3 lines on Thin (Unicorn=6, Puma=6)
-  #Thin web server (v1.7.2 codename Bachmanity)
-  #Maximum connections set to 1024
-  #Listening on 0.0.0.0:4536, CTRL+C to stop
-  if [ "${line_count}" == '3' ]; then
-    printf 'OK\n'
-  else
-    printf 'FAIL\n'
-    print_docker_log "${container_name}" "${log}"
-    exit 42
-  fi
-}
-
-# - - - - - - - - - - - - - - - - - - -
 strip_known_warning()
 {
   local -r log="${1}"
@@ -122,8 +96,8 @@ exit_unless_clean()
   local -r name="${1}"
   local log=$(docker logs "${name}" 2>&1)
 
-  local -r mismatched_indent_warning="application(.*): warning: mismatched indentations at 'rescue' with 'begin'"
-  log=$(strip_known_warning "${log}" "${mismatched_indent_warning}")
+  #local -r mismatched_indent_warning="application(.*): warning: mismatched indentations at 'rescue' with 'begin'"
+  #log=$(strip_known_warning "${log}" "${mismatched_indent_warning}")
 
   local -r line_count=$(echo -n "${log}" | grep -c '^')
   echo -n "Checking ${name} started cleanly..."
