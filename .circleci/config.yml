@@ -10,7 +10,7 @@ jobs:
           command: |
             export AVATARS_COVERAGE=off
             export AVATARS_DEMO=off
-            ./build_test_tag_publish.sh
+            ./build_tag_test_publish.sh
 
   deploy-to-beta:
     docker:

@@ -14,9 +14,9 @@ fi
 source ${SH_DIR}/versioner_env_vars.sh
 export $(versioner_env_vars)
 ${SH_DIR}/build_docker_images.sh "$@"
+${SH_DIR}/tag_image.sh
 ${SH_DIR}/containers_up.sh "$@"
 ${SH_DIR}/test_in_containers.sh "$@"
 ${SH_DIR}/containers_down.sh
-${SH_DIR}/tag_image.sh
 ${SH_DIR}/on_ci_publish_tagged_images.sh
 # open file://${SH_DIR}/../test_server/coverage/index.html
