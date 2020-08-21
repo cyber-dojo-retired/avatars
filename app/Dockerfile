@@ -6,7 +6,9 @@ COPY --chown=nobody:nogroup . /app
 ARG COMMIT_SHA
 ENV SHA=${COMMIT_SHA}
 
-EXPOSE 5027
+ARG CYBER_DOJO_AVATARS_PORT
+ENV PORT=${CYBER_DOJO_AVATARS_PORT}
+EXPOSE ${PORT}
 
 USER nobody
 ENTRYPOINT ["/sbin/tini", "-g", "--"]

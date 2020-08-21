@@ -6,23 +6,24 @@ services:
   avatars-client:
     build:
       context: client
+      args: [ CYBER_DOJO_AVATARS_CLIENT_PORT ]
     image: cyberdojo/avatars-client
     container_name: test-avatars-client
-    user: nobody
+    user: ${CYBER_DOJO_AVATARS_CLIENT_USER}
     read_only: true
     tmpfs: /tmp
     restart: "no"
-    ports: [ "5028:5028" ]
+    ports: [ "${CYBER_DOJO_AVATARS_CLIENT_PORT}:${CYBER_DOJO_AVATARS_CLIENT_PORT}" ]
 
   avatars-server:
     build:
       context: app
-      args: [ COMMIT_SHA ]
+      args: [ COMMIT_SHA, CYBER_DOJO_AVATARS_PORT ]
     image: ${CYBER_DOJO_AVATARS_IMAGE}
     container_name: test-avatars-server
     environment: [ NO_PROMETHEUS ]
     ports: [ "${CYBER_DOJO_AVATARS_PORT}:${CYBER_DOJO_AVATARS_PORT}" ]
-    user: nobody
+    user: ${CYBER_DOJO_AVATARS_SERVER_USER}
     read_only: true
     restart: "no"
     volumes: [ "./test_server:/app/test:ro" ]

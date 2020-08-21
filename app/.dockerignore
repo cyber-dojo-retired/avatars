@@ -1,5 +1,6 @@
 *
 !images/
 !source/
+!puma.rb
 !config.ru
 !up.sh

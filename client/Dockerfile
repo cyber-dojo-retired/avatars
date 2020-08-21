@@ -4,7 +4,9 @@ LABEL maintainer=jon@jaggersoft.com
 WORKDIR /app
 COPY --chown=nobody:nogroup . .
 
-EXPOSE 5028
+ARG CYBER_DOJO_AVATARS_CLIENT_PORT
+ENV PORT=${CYBER_DOJO_AVATARS_CLIENT_PORT}
+EXPOSE ${PORT}
 
 USER nobody
 ENTRYPOINT ["/sbin/tini", "-g", "--"]

@@ -145,5 +145,5 @@ container_up_ready_and_clean()
 
 # - - - - - - - - - - - - - - - - - - -
 export NO_PROMETHEUS=true
-container_up_ready_and_clean "$(root_dir $0)" avatars-server 5027
-container_up_ready_and_clean "$(root_dir $0)" avatars-client 5028
+container_up_ready_and_clean "$(root_dir $0)" avatars-server "${CYBER_DOJO_AVATARS_PORT}"
+container_up_ready_and_clean "$(root_dir $0)" avatars-client "${CYBER_DOJO_AVATARS_CLIENT_PORT}"
