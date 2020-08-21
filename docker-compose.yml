@@ -7,7 +7,6 @@ services:
     build:
       context: client
     image: cyberdojo/avatars-client
-    init: true
     container_name: test-avatars-client
     user: nobody
     read_only: true
@@ -23,7 +22,6 @@ services:
     container_name: test-avatars-server
     environment: [ NO_PROMETHEUS ]
     ports: [ "${CYBER_DOJO_AVATARS_PORT}:${CYBER_DOJO_AVATARS_PORT}" ]
-    init: true
     user: nobody
     read_only: true
     restart: "no"
