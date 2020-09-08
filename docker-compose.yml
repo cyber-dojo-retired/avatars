@@ -9,6 +9,8 @@ services:
       args: [ CYBER_DOJO_AVATARS_CLIENT_PORT ]
     image: cyberdojo/avatars-client
     container_name: test-avatars-client
+    env_file:
+      - .env    
     user: ${CYBER_DOJO_AVATARS_CLIENT_USER}
     read_only: true
     tmpfs: /tmp
@@ -21,7 +23,8 @@ services:
       args: [ COMMIT_SHA, CYBER_DOJO_AVATARS_PORT ]
     image: ${CYBER_DOJO_AVATARS_IMAGE}
     container_name: test-avatars-server
-    environment: [ NO_PROMETHEUS ]
+    env_file:
+      - .env
     ports: [ "${CYBER_DOJO_AVATARS_PORT}:${CYBER_DOJO_AVATARS_PORT}" ]
     user: ${CYBER_DOJO_AVATARS_SERVER_USER}
     read_only: true
