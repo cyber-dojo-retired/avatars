@@ -10,7 +10,7 @@ services:
     image: cyberdojo/avatars-client
     container_name: test-avatars-client
     env_file:
-      - .env    
+      - .env
     user: ${CYBER_DOJO_AVATARS_CLIENT_USER}
     read_only: true
     tmpfs: /tmp
