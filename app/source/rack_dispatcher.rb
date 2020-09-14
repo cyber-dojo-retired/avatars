@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require_relative 'http/request_error'
 require_relative 'http_args'
 require 'json'

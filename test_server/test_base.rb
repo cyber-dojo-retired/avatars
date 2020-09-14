@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_relative 'hex_mini_test'
 
 def require_source(s)
