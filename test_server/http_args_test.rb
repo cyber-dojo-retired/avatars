@@ -52,16 +52,24 @@ class HttpArgsTest < TestBase
     assert_equal [23], args
   end
 
+  test 'e17', %w(
+  name has one arg in the path (not the body or params)
+  so it can be captured in an nginx location ) do
+    name,args = HttpArgs.new.get('/name/23')
+    assert_equal 'name', name
+    assert_equal [23], args
+  end
+
   # - - - - - - - - - - - - - - - - -
 
-  test 'e17', %w( raises if image's id is missing ) do
+  test 'f17', %w( raises if image's id is missing ) do
     error = assert_raises(Http::RequestError) {
       HttpArgs.new.get('/image/')
     }
     assert_equal 'id is missing', error.message
   end
 
-  test 'e18', %w( raises if image's id is malformed ) do
+  test 'f18', %w( raises if image's id is malformed ) do
     error_paths = %w( /image/one /image/123 /image/64 )
     error_paths.each do |error_path|
       error = assert_raises(Http::RequestError) {
@@ -73,7 +81,7 @@ class HttpArgsTest < TestBase
 
   # - - - - - - - - - - - - - - - - -
 
-  test 'e19', %w( image/all batch method ) do
+  test 'd19', %w( image/all batch method ) do
     name,args = HttpArgs.new.get('/image/all')
     assert_equal 'image', name
     assert_equal [:all], args

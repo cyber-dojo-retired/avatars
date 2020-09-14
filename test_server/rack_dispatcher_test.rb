@@ -50,6 +50,19 @@ class RackDispatcherTest < TestBase
     end
   end
 
+  test '136', 'name 200' do
+    names = {
+      '/name/0' => 'alligator',
+      '/name/17' => 'gopher',
+      '/name/63' => 'zebra'
+    }
+    names.each do |path,name|
+      assert_200_json(path) do |response|
+        assert_equal name, response['name']
+      end
+    end
+  end
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 400
   # - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -11,6 +11,9 @@ class Avatars
       File.basename(pathname, '.jpg')
     }.sort
     @names_response = json_response('names', names)
+    @name_responses = (0..63).map do |n|
+      json_response('name', names[n])
+    end
     @image_responses = (0..63).map do |n|
       jpg_response(names[n])
     end
@@ -29,8 +32,14 @@ class Avatars
     @ready_response
   end
 
+  # - - - - - - - - - - - - - - -
+
   def names
     @names_response
+  end
+
+  def name(n)
+    @name_responses[n]
   end
 
   def image(n)
