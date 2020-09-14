@@ -13,21 +13,75 @@
   * [GET alive?](#get-alive)
   * [GET ready?](#get-ready)
   * [GET sha](#get-sha)
+  * [GET name(n)](#get-namen)
   * [GET names](#get-names)
   * [GET image(n)](#get-imagen)
 
 - - - -
-# JSON in, JSON out  
-* All methods receive a JSON hash.
-  * The hash contains any method arguments as key-value pairs.
-* All methods except image(n) return a JSON hash.
-  * If the method completes a key equals the method's name.
-  * If the method raises an exception, a key equals "exception".
-* The method image(n) returns a jpg/png image.
+# GET alive?
+Used as a k8s liveness probe.
+- returns
+  * **true**
+  ```json
+  { "ready?": true }
+  ```
+- parameters
+  * none
+  ```json
+  {}
+  ```
+
+- - - -
+# GET ready?
+Used as a k8s readiness probe.
+- returns
+  * **true** if the service is ready
+  ```json
+  { "ready?": true }
+  ```
+  * **false** if the service is not ready
+  ```json
+  { "ready?": false }
+  ```
+- parameters
+  * none
+  ```json
+  {}
+  ```
+
+- - - -
+# GET sha
+The git commit sha used to create the Docker image.
+- returns
+  * The 40 character sha String.
+  * eg
+  ```json
+  { "sha": "b28b3e13c0778fe409a50d23628f631f87920ce5" }
+  ```
+- parameters
+  * none
+  ```json
+  {}
+  ```
+
+- - - -
+## GET name(n)
+The name of the nth avatar.
+- returns
+  * A String
+  * eg
+  ```json
+  { "name": "bat" }
+  ```
+- parameters
+  * An integer in the range (0..63) inclusive.
+  ```json
+  { "n": 2 }
+  ```
 
 - - - -
 ## GET names
-Serves the avatars names.
+The names of all 64 avatars.
 - returns
   * An array of 64 strings
   * eg
@@ -51,7 +105,7 @@ Serves the avatars names.
 
 - - - -
 # GET image(n)
-Serves the avatar image with the given index,
+The avatar image with the given index,
 or the avatar image showing all 64 avatars.
 - returns
   * An image (eg jpg,png,gif,etc)
@@ -62,51 +116,13 @@ or the avatar image showing all 64 avatars.
     eg, n==63 returns the 'zebra' image.
 
 - - - -
-# GET alive?
-Useful as a liveness probe.
-- returns
-  * **true**
-  ```json
-  { "ready?": true }
-  ```
-- parameters
-  * none
-  ```json
-  {}
-  ```
-
-- - - -
-# GET ready?
-Useful as a readiness probe.
-- returns
-  * **true** if the service is ready
-  ```json
-  { "ready?": true }
-  ```
-  * **false** if the service is not ready
-  ```json
-  { "ready?": false }
-  ```
-- parameters
-  * none
-  ```json
-  {}
-  ```
-
-- - - -
-# GET sha
-The git commit sha used to create the Docker image.
-- returns
-  * The 40 character sha string.
-  * eg
-  ```json
-  { "sha": "b28b3e13c0778fe409a50d23628f631f87920ce5" }
-  ```
-- parameters
-  * none
-  ```json
-  {}
-  ```
+# JSON in, JSON out  
+* All methods receive a JSON hash.
+  * The hash contains any method arguments as key-value pairs.
+* All methods except image(n) return a JSON hash.
+  * If the method completes a key equals the method's name.
+  * If the method raises an exception, a key equals "exception".
+* The method image(n) returns a jpg/png image.
 
 - - - -
 ![cyber-dojo.org home page](https://github.com/cyber-dojo/cyber-dojo/blob/master/shared/home_page_snapshot.png)
