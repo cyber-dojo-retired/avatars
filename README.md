@@ -13,7 +13,6 @@
   * [GET alive?](#get-alive)
   * [GET ready?](#get-ready)
   * [GET sha](#get-sha)
-  * [GET name(n)](#get-namen)
   * [GET names](#get-names)
   * [GET image(n)](#get-imagen)
 
@@ -62,21 +61,6 @@ The git commit sha used to create the Docker image.
   * none
   ```json
   {}
-  ```
-
-- - - -
-## GET name(n)
-The name of the nth avatar.
-- returns
-  * A String
-  * eg
-  ```json
-  { "name": "bat" }
-  ```
-- parameters
-  * An integer in the range (0..63) inclusive.
-  ```json
-  { "n": 2 }
   ```
 
 - - - -

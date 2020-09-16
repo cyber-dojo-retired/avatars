@@ -9,7 +9,6 @@ class HttpArgs
     when 'alive'       then ['alive?',[]]
     when 'ready'       then ['ready?',[]]
     when 'names'       then ['names',[]]
-    when /name\/(.*)/  then ['name',[id($1)]]
     when /image\/(.*)/ then ['image',[id($1)]]
     else
       raise request_error('unknown path')

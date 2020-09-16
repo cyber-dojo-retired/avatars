@@ -52,14 +52,6 @@ class HttpArgsTest < TestBase
     assert_equal [23], args
   end
 
-  test 'e17', %w(
-  name has one arg in the path (not the body or params)
-  so it can be captured in an nginx location ) do
-    name,args = HttpArgs.new.get('/name/23')
-    assert_equal 'name', name
-    assert_equal [23], args
-  end
-
   # - - - - - - - - - - - - - - - - -
 
   test 'f17', %w( raises if image's id is missing ) do
