@@ -41,7 +41,8 @@ class RackDispatcherTest < TestBase
     images = {
       '/image/0'   => { size:38453, type:'jpg' },
       '/image/63'  => { size:41129, type:'jpg' },
-      '/image/all' => { size:135761,type:'png' }
+      '/image/all' => { size:2050998,type:'png' },
+      '/image/all_gray' => { size:546695,type:'png' }
     }
     images.each do |path,prop|
       assert_200_img(prop[:type], path) do |response|
