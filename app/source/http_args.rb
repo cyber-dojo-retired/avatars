@@ -18,8 +18,8 @@ class HttpArgs
   private
 
   def id(s)
-    if s === 'all'
-      return :all
+    if s === 'all' || s === 'all_gray'
+      return s.to_sym
     end
     if s === ''
       raise missing('id')

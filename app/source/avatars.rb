@@ -15,6 +15,7 @@ class Avatars
       jpg_response(names[n])
     end
     @image_all = png_response('all')
+    @image_all_gray = png_response('all_gray')
   end
 
   def sha
@@ -38,6 +39,8 @@ class Avatars
   def image(n)
     if n === :all
       @image_all
+    elsif n === :all_gray
+      @image_all_gray
     else
       @image_responses[n]
     end
