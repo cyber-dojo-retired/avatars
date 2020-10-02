@@ -1,16 +1,28 @@
 #!/bin/bash -Eeu
 
-# - - - - - - - - - - - - - - - - - - - - - -
-ip_address()
+# - - - - - - - - - - - - - - - - - - -
+containers_up()
 {
-  if [ -n "${DOCKER_MACHINE_NAME}" ]; then
-    docker-machine ip ${DOCKER_MACHINE_NAME}
-  else
-    echo localhost
-  fi
+  container_up_ready_and_clean avatars-server "${CYBER_DOJO_AVATARS_PORT}"
+  container_up_ready_and_clean avatars-client "${CYBER_DOJO_AVATARS_CLIENT_PORT}"
 }
 
-readonly IP_ADDRESS=$(ip_address)
+# - - - - - - - - - - - - - - - - - - -
+container_up_ready_and_clean()
+{
+  local -r service_name="${1}"
+  local -r container_name="test-${service_name}"
+  local -r port="${2}"
+  echo
+  docker-compose \
+    --file "${ROOT_DIR}/docker-compose.yml" \
+    up \
+    -d \
+    --force-recreate \
+      "${service_name}"
+  wait_briefly_until_ready "${container_name}" "${port}"
+  exit_unless_clean "${container_name}"
+}
 
 # - - - - - - - - - - - - - - - - - - - - - -
 wait_briefly_until_ready()
@@ -34,8 +46,13 @@ wait_briefly_until_ready()
   if [ -f "$(ready_response_filename)" ]; then
     echo "$(ready_response)"
   fi
+  echo "name=${name}"
+  echo "port=${port}"
+  echo "docker logs ${name} ......"
   docker logs ${name}
-  exit 3
+  echo "docker ps --all ......"
+  docker ps --all
+  exit 42
 }
 
 # - - - - - - - - - - - - - - - - - - -
@@ -56,6 +73,18 @@ ready()
     false
   fi
 }
+
+# - - - - - - - - - - - - - - - - - - - - - -
+ip_address()
+{
+  if [ -n "${DOCKER_MACHINE_NAME:-}" ]; then
+    docker-machine ip ${DOCKER_MACHINE_NAME}
+  else
+    echo localhost
+  fi
+}
+
+readonly IP_ADDRESS=$(ip_address)
 
 # - - - - - - - - - - - - - - - - - - -
 ready_response()
@@ -102,8 +131,9 @@ exit_unless_clean()
     echo 'OK'
   else
     echo 'FAIL'
+    echo "line_count==${line_count}"
     echo_docker_log "${name}" "${log}"
-    exit 3
+    exit 42
   fi
 }
 
@@ -116,28 +146,4 @@ echo_docker_log()
   echo "<docker_log>"
   echo "${docker_log}"
   echo "</docker_log>"
-}
-
-# - - - - - - - - - - - - - - - - - - -
-container_up_ready_and_clean()
-{
-  local -r service_name="${1}"
-  local -r container_name="test-${service_name}"
-  local -r port="${2}"
-  echo
-  docker-compose \
-    --file "${ROOT_DIR}/docker-compose.yml" \
-    up \
-    -d \
-    --force-recreate \
-      "${service_name}"
-  wait_briefly_until_ready "${container_name}" "${port}"
-  exit_unless_clean "${container_name}"
-}
-
-# - - - - - - - - - - - - - - - - - - -
-containers_up()
-{
-  container_up_ready_and_clean avatars-server "${CYBER_DOJO_AVATARS_PORT}"
-  container_up_ready_and_clean avatars-client "${CYBER_DOJO_AVATARS_CLIENT_PORT}"
 }
