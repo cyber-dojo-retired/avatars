@@ -1,11 +1,4 @@
-#!/bin/bash
-set -e
-
-# - - - - - - - - - - - - - - - - - - -
-root_dir()
-{
-  echo $( cd "$( dirname "${1}" )" && cd .. && pwd )
-}
+#!/bin/bash -Eeu
 
 # - - - - - - - - - - - - - - - - - - - - - -
 ip_address()
@@ -128,13 +121,12 @@ echo_docker_log()
 # - - - - - - - - - - - - - - - - - - -
 container_up_ready_and_clean()
 {
-  local -r root_dir="${1}"
-  local -r service_name="${2}"
+  local -r service_name="${1}"
   local -r container_name="test-${service_name}"
-  local -r port="${3}"
+  local -r port="${2}"
   echo
   docker-compose \
-    --file "${root_dir}/docker-compose.yml" \
+    --file "${ROOT_DIR}/docker-compose.yml" \
     up \
     -d \
     --force-recreate \
@@ -144,6 +136,8 @@ container_up_ready_and_clean()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-export NO_PROMETHEUS=true
-container_up_ready_and_clean "$(root_dir $0)" avatars-server "${CYBER_DOJO_AVATARS_PORT}"
-container_up_ready_and_clean "$(root_dir $0)" avatars-client "${CYBER_DOJO_AVATARS_CLIENT_PORT}"
+containers_up()
+{
+  container_up_ready_and_clean avatars-server "${CYBER_DOJO_AVATARS_PORT}"
+  container_up_ready_and_clean avatars-client "${CYBER_DOJO_AVATARS_CLIENT_PORT}"
+}

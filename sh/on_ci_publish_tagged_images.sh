@@ -1,5 +1,4 @@
-#!/bin/bash
-set -e
+#!/bin/bash -Eeu
 
 #- - - - - - - - - - - - - - - - - - - - - - - -
 on_ci_publish_tagged_images()
@@ -24,18 +23,3 @@ on_ci()
 {
   [ -n "${CIRCLECI}" ]
 }
-
-#- - - - - - - - - - - - - - - - - - - - - - - -
-image_name()
-{
-  echo "${CYBER_DOJO_AVATARS_IMAGE}"
-}
-
-#- - - - - - - - - - - - - - - - - - - - - - - -
-image_sha()
-{
-  docker run --rm "$(image_name):latest" sh -c 'echo ${SHA}'
-}
-
-#- - - - - - - - - - - - - - - - - - - - - - - -
-on_ci_publish_tagged_images
