@@ -6,12 +6,13 @@ readonly my_name=avatars
 test_in_containers()
 {
   echo
-  run_tests nobody server "${*}"
+  run_tests "${CYBER_DOJO_AVATARS_SERVER_USER}" server "${@:-}"
   server_status=$?
   if [ "${server_status}" = "0" ];  then
-    echo '------------------------------------------------------'
+    echo
     echo 'All passed'
-    exit 0
+    echo '------------------------------------------------------'
+    echo
   else
     echo
     echo "test-${my_name}-server: status = ${server_status}"
